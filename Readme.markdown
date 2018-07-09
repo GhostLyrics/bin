@@ -10,7 +10,7 @@ Scripts will notify you of missing components. To check how this works, see `lib
 
 ```shell
 git clone git@github.com:GhostLyrics/bin.git
-ln -s ~/bin bin
+ln -s bin ~/bin
 ```
 
 For convenience, you can extend your `PATH` in your `.bash_profile`.
