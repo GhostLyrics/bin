@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Set up a new vagrant box and log in
+# Try to be smart about creating boxes by accepting their Debian and Ubuntu codenames
+
+# shellcheck source=lib.sh
+. ~/bin/lib.sh
+check_dependency vagrant
+
+if [ "$#" -ne 1 ]; then
+  printf "Parameter missing: should be a known codename or a Vagrant box.\\n"
+  exit 1
+fi
+
+while test $# -gt 0
+do
+    case "$1" in
+        # Debian
+        stretch) VERSION="bento/debian-9.4"
+            ;;
+        jessie) VERSION="bento/debian-8.10"
+            ;;
+
+        # Ubuntu
+        trusty) VERSION="bento/ubuntu-14.04"
+            ;;
+        xenial) VERSION="bento/ubuntu-16.04"
+            ;;
+        bionic) VERSION="bento/ubuntu-18.04"
+            ;;
+        *) VERSION="$1"
+    esac
+    shift
+done
+
+vagrant init "$VERSION"
+vagrant box update
+vagrant up
+vagrant ssh

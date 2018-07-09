@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Log into the running Vagrant default instance and tail the syslog
+# Try to log in again if the connection goes down (e.g. the VM is restarted)
+
+# shellcheck source=lib.sh
+. ~/bin/lib.sh
+check_dependency vagrant
+
+while true;
+do
+  sleep 1;
+  vagrant ssh -- sudo journalctl -f;
+done

@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Pull open issues from Markdown logs from the previous week and create new log for this week
+# GLY_LOG_PATH (required): the location of the log files
+# GLY_EDITOR (optional): specify a non-default EDITOR (e.g. for usage with out "--wait")
+
+# configuration
+LOG_PATH=${GLY_LOG_PATH?"No log path defined."}
+EDITOR=${GLY_EDITOR:-$EDITOR}
+
+# non-configuration variables
+CURRENT_WEEK=$(date -j "+%Y-%V")
+PREVIOUS_WEEK=$(date -j -v-1w "+%Y-%V")
+
+echo "# Week $CURRENT_WEEK" > "$LOG_PATH/$CURRENT_WEEK.markdown"
+echo "## Issues from last week" >> "$LOG_PATH/$CURRENT_WEEK.markdown"
+grep ' \[ \] ' "$LOG_PATH/$PREVIOUS_WEEK.markdown" | sed -e 's/^[[:space:]]*//' >> "$LOG_PATH/$CURRENT_WEEK.markdown"
+
+$EDITOR "$LOG_PATH/$CURRENT_WEEK.markdown"
