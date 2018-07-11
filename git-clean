@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Clean untracked files and folders from the current git directory
+# Asks for confirmation before deletion.
+
+# shellcheck source=lib.sh
+. ~/bin/lib.sh
+check_dependency git
+
+git clean --dry-run -d
+
+if [[ ! $(git clean --dry-run -d) ]]; then
+    echo "Nothing to clean."
+    exit 0
+fi
+
+if ask "Remove listed items?" N; then
+    git clean -d --force
+    printf "Done.\\n"
+else
+    printf "Removal canceled.\\n"
+fi
