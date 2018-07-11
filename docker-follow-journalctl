@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Follow the systemd journal in a running Docker container.
+
+# shellcheck source=lib.sh
+. ~/bin/lib.sh
+check_dependency docker
+
+if [ "$#" -ne 1 ]; then
+  printf "Parameter missing: should be a known name or a container ID.\\n"
+  exit 1
+fi
+
+until docker exec "$1" journalctl -f; do
+  sleep 1
+done
