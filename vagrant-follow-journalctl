@@ -8,8 +8,6 @@ set -euo pipefail
 . ~/bin/lib.sh
 check_dependency vagrant
 
-while true;
-do
-  sleep 1;
-  vagrant ssh -- sudo journalctl -f;
+until vagrant ssh -- sudo journalctl -f; do
+  sleep 1
 done
