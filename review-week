@@ -17,4 +17,7 @@ echo "# Week $CURRENT_WEEK" > "$LOG_PATH/$CURRENT_WEEK.markdown"
 echo "## Issues from last week" >> "$LOG_PATH/$CURRENT_WEEK.markdown"
 grep ' \[ \] ' "$LOG_PATH/$PREVIOUS_WEEK.markdown" | sed -e 's/^[[:space:]]*//' >> "$LOG_PATH/$CURRENT_WEEK.markdown"
 
+chmod u-w "$LOG_PATH/$PREVIOUS_WEEK.markdown"
+printf "Locked %s to prevent accidental editing.\\n" "$LOG_PATH/$PREVIOUS_WEEK.markdown"
+
 $EDITOR "$LOG_PATH/$CURRENT_WEEK.markdown"
