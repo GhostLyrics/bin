@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Unstages all staged files
+
+# shellcheck source=lib.sh
+. ~/bin/lib.sh
+check_dependency git
+
+git reset
