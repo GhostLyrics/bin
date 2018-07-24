@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Create a patch from the last commit
+# (also known as "I committed to master locally.")
+
+# shellcheck source=lib.sh
+. ~/bin/lib.sh
+check_dependency git
+
+git format-patch HEAD^
+git reset --soft HEAD^
