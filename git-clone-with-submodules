@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Clone a repository including its submodules
+# Optionally support cloning into a non-default directory
+
+# shellcheck source=lib.sh
+. ~/bin/lib.sh
+check_dependency git
+
+if [ "$#" -lt 1 ]; then
+  printf "Parameter missing: should be a git URL.\\n"
+  exit 1
+
+elif [[ "$#" -eq 1 ]]; then
+    git clone --recurse-submodules "$1"
+
+elif [[ "$#" -eq 2 ]]; then
+    git clone --recurse-submodules "$1" "$2"
+fi
