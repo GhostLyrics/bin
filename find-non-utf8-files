@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Checks for text files that a not in UTF-8 in the current folder
+# Optionally accepts a directory.
+
+# shellcheck source=lib.sh
+. ~/bin/lib.sh
+check_dependency find
+check_dependency file
+check_dependency grep
+
+
+
+if [ "$#" -eq 1 ]; then
+  find "$1" -type f -exec file --mime {} \;  | grep --invert-match 'utf-8\|binary\|ascii'
+else
+  find . -type f -exec file --mime {} \;  | grep --invert-match 'utf-8\|binary\|ascii'
+fi
