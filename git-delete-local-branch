@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Delete a local git branch
+
+# shellcheck source=lib.sh
+. ~/bin/lib.sh
+check_dependency git
+
+if [ "$#" -lt 1 ]; then
+  printf "Parameter missing: should be a branch.\\n"
+  exit 1
+else
+  git branch --delete "$1"
+fi

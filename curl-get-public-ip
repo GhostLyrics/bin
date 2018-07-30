@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Uses a request to ifconfig.co to check one's public IP
+
+# shellcheck source=lib.sh
+. ~/bin/lib.sh
+check_dependency curl
+
+if [ "$#" -eq 1 ] && [ "$1" = "--json" ]; then
+  curl ifconfig.co/json
+  printf "\\n"
+else
+  curl ifconfig.co
+fi

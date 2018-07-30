@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Delete a local git branch
+
+# shellcheck source=lib.sh
+. ~/bin/lib.sh
+check_dependency git
+
+if [ "$#" -lt 1 ]; then
+  printf "Parameter(s) missing: should be remote_name and branch_name.\\n"
+  exit 1
+
+elif [[ "$#" -eq 2 ]]; then
+  git push "$1" --delete "$2"
+
+elif [[ "$#" -eq 1 ]]; then
+  printf "Got only one parameter, assuming remote_name is origin.\\n"
+
+  if ask "Delete 'origin/$1'?" N; then
+    git push origin --delete "$1"
+  else
+    printf "Removal canceled.\\n"
+  fi
+
+fi

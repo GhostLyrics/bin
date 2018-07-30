@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Uses Youtube-dl to download and extract audio from a video
+
+# shellcheck source=lib.sh
+. ~/bin/lib.sh
+check_dependency youtube-dl
+check_dependency ffmpeg
+
+if [ "$#" -lt 1 ]; then
+  printf "Parameter missing: should be a URL.\\n"
+  exit 1
+else
+    youtube-dl --extract-audio --audio-format mp3 "$1"
+fi
