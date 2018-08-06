@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+set -eou pipefail
+
+# Print information commonly used when debugging Virtualbox Shared folder issues
+
+# shellcheck source=lib.sh
+. ~/bin/lib.sh
+check_dependency journalctl
+check_dependency dmesg
+check_dependency lsmod
+check_dependency find
+check_dependency grep
+check_dependency dpkg
+
+DIVIDER="--------------------------------------------------------------------------------"
+
+printf "Log entries for Virtualbox guest service:\\n"
+journalctl -u virtualbox-guest-utils
+printf "%S" $DIVIDER
+
+printf "Debug messages containing 'vboxguest':\\n"
+dmesg | grep vboxguest
+printf "%S" $DIVIDER
+
+printf "Loaded kernel modules containing 'vbox':\\n"
+lsmod | grep vbox
+printf "%S" $DIVIDER
+
+printf "Compiled kernel modules starting with 'vbox':\\n"
+find /lib -name "vbox*"
+printf "%S" $DIVIDER
+
+printf "Installed packages containing 'virtualbox-guest':\\n"
+dpkg -l | grep "virtualbox-guest"
+printf "%S" $DIVIDER
+
+printf "Content of /media/sf_* folders:\\n"
+ls -l /media/sf_*
