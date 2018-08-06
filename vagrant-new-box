@@ -21,6 +21,8 @@ do
             ;;
         jessie) VERSION="bento/debian-8.10"
             ;;
+        wheezy) VERSION="bento/debian-7.10"
+            ;;
 
         # Ubuntu
         trusty) VERSION="bento/ubuntu-14.04"
