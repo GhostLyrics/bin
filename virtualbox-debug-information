@@ -16,23 +16,23 @@ DIVIDER="-----------------------------------------------------------------------
 
 printf "Log entries for Virtualbox guest service:\\n"
 journalctl --unit virtualbox-guest-utils --no-pager
-printf "%s" $DIVIDER
+printf "%s\\n" $DIVIDER
 
 printf "Debug messages containing 'vboxguest':\\n"
 dmesg | grep vboxguest
-printf "%s" $DIVIDER
+printf "%s\\n" $DIVIDER
 
 printf "Loaded kernel modules containing 'vbox':\\n"
 lsmod | grep vbox
-printf "%s" $DIVIDER
+printf "%s\\n" $DIVIDER
 
 printf "Compiled kernel modules starting with 'vbox':\\n"
 find /lib -name "vbox*"
-printf "%s" $DIVIDER
+printf "%s\\n" $DIVIDER
 
 printf "Installed packages containing 'virtualbox-guest':\\n"
 dpkg --list | grep "virtualbox-guest"
-printf "%s" $DIVIDER
+printf "%s\\n" $DIVIDER
 
 printf "Content of /media/sf_* folders:\\n"
 ls -l /media/sf_*
